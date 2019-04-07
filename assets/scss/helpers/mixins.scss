@@ -1,0 +1,57 @@
+@mixin responsive($pixels){
+	@media screen and (max-width:$pixels){
+		@content;
+	}
+}
+@mixin mfresponsive($pixels){
+	@media screen and (min-width:$pixels){
+		@content;
+	}
+}
+@mixin fontSrc($name) {
+  src: url("../fonts/#{$name}.eot");
+  src: url("../fonts/#{$name}.eot?#iefix") format('embedded-opentype'), url("../fonts/#{$name}.woff2") format('woff2'), url("../fonts/#{$name}.woff") format('woff');
+}
+
+@mixin transform($property) {
+    -webkit-transform: $property;
+        -ms-transform: $property;
+            transform: $property;
+}
+
+
+// Flexbox display
+@mixin flexbox() {
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+  }
+
+// Axis Alignment
+@mixin justify-content($justify) {
+	-webkit-justify-content: $justify;
+	   -moz-justify-content: $justify;
+		-ms-justify-content: $justify;
+			justify-content: $justify;
+			-ms-flex-pack: $justify;
+}
+
+
+
+// Flex Flow Direction
+@mixin flex-direction($direction) {
+	-webkit-flex-direction: $direction;
+	   -moz-flex-direction: $direction;
+		-ms-flex-direction: $direction;
+			flex-direction: $direction;
+}
+
+//transition
+@mixin transition($transition...) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}

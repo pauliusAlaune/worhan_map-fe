@@ -1,0 +1,804 @@
+.mapSection {
+    position: relative;
+    background-color: #fff;
+    width: 100%;
+    height: 100vh;
+    padding: 0 11.718%;
+    @include responsive(1024px)
+    {
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 0;
+    }
+    &__mapHolder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        padding-top: 11.95%;
+        padding-bottom: 11.95%;
+        position: relative;
+        @include responsive(1024px)
+        {
+            width: 1580px;
+            padding: 150px 10% 100px;
+        }
+        @include responsive(767px)
+        {
+            width: 920px;
+            padding: 100px 10% 100px;
+        }
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+    &__meaningHolder {
+        height: 50px;
+        padding: 10px 30px;
+        border: 1px solid #2f3034;
+        background-color: #ffffff;
+        position: fixed;
+        bottom: 100px;
+        right: 7.29166%;
+        display: flex;
+        @include responsive(1440px)
+        {
+            bottom: 60px;
+            right: 5%;
+            height: 40px;
+        }
+        @include responsive(767px)
+        {
+            bottom: 20px;
+            right: 0;
+            height: auto;
+            margin-right: 5%;
+            margin-left: 5%;
+            flex-wrap: wrap;
+            padding: 10px;
+        }
+    }
+}
+
+.meaningBlock {
+    display: flex;
+    align-items: center;
+    &:first-child {
+        margin-right: 48px;
+        @include responsive(767px)
+        {
+            margin-right: 0px;
+            margin-bottom: 5px;
+        }
+    }
+    &--circle {
+        
+    }
+    &--text {
+        color: #2f3034;
+        font-family: 'Lato';
+        font-size: 15px;
+        font-weight: 400;
+        margin-left: 20px;
+    }
+}
+ 
+.pointerWrapper {
+    position:relative;
+    width:100%;
+    height:auto;
+    .pointer {
+        position: absolute;
+        z-index: 1;
+        &.hidePointer {
+            display: none;
+            visibility: hidden;
+        } 
+        &--circle {
+            cursor: pointer;
+        }
+        &.active {
+            z-index: 2;
+            .pointer--circle {
+                &::after {
+                    content: '';
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 0;
+                    left: -5px;
+                    right: 0;
+                    bottom: 0;
+                    margin: auto;
+                    opacity: 1;
+                    text-align: center;
+                    border: 3px solid transparent;
+                    border-top: 3px solid #fff700;
+                    border-bottom: 3px solid #fff700;
+                    background-color: transparent;
+                    transition: all 0.3s ease;
+                    z-index: -1;
+                    @include responsive(1440px)
+                    {
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+                &::before {
+                    content: '';
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    opacity: 1;
+                    margin: auto;
+                    text-align: center;
+                    border-top: 1px solid #fff700;
+                    border-bottom: 1px solid #fff700;
+                    background-color: transparent;
+                    transition: all 0.3s ease;
+                    z-index: -1;
+                    @include responsive(1440px)
+                    {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+                &.flagCircle {
+                    &::after {
+                        display: none;
+                    }
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
+        }
+        &__popup {
+            width: 192px;
+            height: 119px;
+            position: absolute;
+            top: -130px;
+            left: 50%;
+            text-align: center;
+            z-index: 10;
+            transform: translateX(-50%);
+            display: none;
+            &.show {
+                display: block;
+            }
+            &.open {                
+                .popupContent {
+                    opacity: 1;
+                    transform: translateY(0px);
+                }
+            }
+            .popupContent {
+                transition: opacity 0.3s ease, transform 0.3s ease-out;
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            &--block {
+                border: 1px solid #2f3034;
+                background-color: #ffffff;
+                width: 100%;
+                height: 98px;
+                position: relative;
+                top: 0;
+                left: 0;
+                right: 0;
+                padding: 30px 15px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                &::before {
+                    content: '';
+                    width: 30px;
+                    height: 30px;
+                    background-color: #fff;
+                    border: 1px solid #2f3034;
+                    transform: rotate(45deg);
+                    position: absolute;
+                    bottom: -16px;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    text-align: center;
+                    border-left: none;
+                    border-top: none;
+                }
+            }
+        }
+    }
+    .pointer--circle {
+        &::after {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            opacity: 1;
+            text-align: center;
+            background-color: rgba(255, 247, 0, 0.25);
+            transition: all 0.3s ease;
+            z-index: -1;
+            @include responsive(1440px)
+            {
+                width: 20px;
+                height: 20px;
+            }
+        }
+        &::before {
+            content: '';
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 1;
+            margin: auto;
+            text-align: center;
+            background-color: rgba(255, 247, 0, 0.35);
+            transition: all 0.3s ease;
+            z-index: -1;
+            @include responsive(1440px)
+            {
+                width: 20px;
+                height: 20px;
+            }
+        }
+        &.flagCircle {
+            &::after {
+                display: none;
+            }
+            &::before {
+                display: none;
+            }
+        }
+    }
+    .pointerColombia {
+        top: 60%;
+        left: 25.4%;
+    }
+    .pointerMexico {
+        top: 52.1%;
+        left: 17.5%;
+    }
+    .pointerPeru {
+        top: 69%;
+        left: 24.5%;
+    }
+    .pointerBrazil {
+        top: 67%;
+        left: 33%;
+    }
+    .pointerChile {
+        top: 83.5%;
+        left: 25.5%;
+    }
+    .pointerArgentina {
+        top: 79.5%;
+        left: 28%;
+    }
+    .pointerRussia {
+        top: 25%;
+        left: 57.5%;
+    }
+    .pointerUk {
+        top: 30%;
+        left: 46.5%;
+    }
+    .pointerGermany {
+        top: 31%;
+        left: 49%;
+    }
+}
+.popupContent {
+    &__region {
+        color: #2f3034;
+        font-family: 'Lato';
+        font-size: 15px;
+        font-weight: 400;
+        margin-bottom: 9px;
+        &--name {
+            font-weight: 700;
+        }
+    }
+    &--formCaller {
+        color: #2f3034;
+        font-family: 'Lato';
+        font-size: 15px;
+        font-weight: 400;
+        transition: all 0.5s ease;
+        cursor: pointer;
+        position: relative;
+        padding-bottom: 2px;
+        &::after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #2f3034;
+            transition: width .3s ease-out;
+        }
+        &:hover {
+            &::after {
+                width: 100%;
+            }
+        }
+    }
+} 
+.transperantBg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    height: 100vh;
+    background-color: transparent;
+    transform: translateX(-120%);
+    transition: all 0.5s ease-out;
+    &.open {
+        transform: translateX(0%);
+    }
+}
+.aboutContainer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 50;
+    width: 676px;
+    height: 100vh;
+    background-color: #ffffff;
+    transform: translateX(-700px);
+    transition: all 0.5s ease-out;
+    @include responsive(1024px)
+    {
+        width: 540px;
+    }
+    @include responsive(767px)
+    {
+        width: 100%;
+    }
+    &.open {
+        transform: translateX(0px);
+    }
+    &__inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 38% 140px 100px;
+//        padding: 258px 140px 100px;
+        @include responsive(1800px)
+        {
+            padding: 0 11% 60px 11%;
+        }
+        @include responsive(767px)
+        {
+            padding: 150px 11% 60px 5%;
+            justify-content: flex-start;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        &--para {
+            color: #2f3034;
+            font-family: "Segoe UI";
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+            b {
+                font-weight: 700;
+            }
+        }
+        &--backBtn {
+            margin-top: auto;
+            width: 300px;
+            height: 50px;
+            border: 1px solid #e5e5e5;
+            color: #2f3034;
+            background-color: #fff;
+            font-family: 'Lato';
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            @include responsive(1800px)
+            {
+                margin-top: 50px;
+                width: 250px;
+                height: 40px;
+                min-height: 40px;
+                font-size: 13px;
+            }
+            &:hover {
+                color: #fff;
+                background-color: #2f3034;
+            }
+        }
+    }
+}
+
+
+.worhanForm {
+    position: fixed;
+    top: 0%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 680px;
+    max-height: 456px;
+    border: 1px solid #707070;
+    background-color: #ffffff;
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    transform: translateY(-100vh);
+    transition: transform 0.5s ease-out;
+    z-index: 80;
+    @include responsive(767px)
+    {
+        width: 90%;
+        max-height: 468px;
+        padding: 20px;
+        margin: 70px auto 0;
+    }
+    &.open {
+        transform: translateY(0);
+    }
+    &--closeBtn {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        width: 14px;
+        height: 20px;
+        background-image: url('../images/close.png');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        cursor: pointer;
+        transform: rotate(0deg);
+        transition: transform .3s ease;
+        @include responsive(767px)
+        {
+            top: 20px;
+            right: 20px;
+        }
+        &:hover {
+            transform: rotate(90deg);
+        }
+    }
+    &__topHideInput {
+        width: 80%;
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 30px;
+        @include responsive(767px)
+        {
+            height: 30px;
+            margin-bottom: 10px;
+        }
+        .hideInputLabel {
+            color: #2f3034;
+            font-family: 'Lato';
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.4;
+            @include responsive(767px)
+            {
+                
+            }
+        }
+        .hideInput {
+            color: #2f3034;
+            font-family: 'Lato';
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.4;
+            background-color: transparent;
+            border: none;
+            width: auto;
+            height: auto;
+            padding-bottom: 2px;
+            padding-left: 3px;
+            text-transform: capitalize;
+            @include responsive(767px)
+            {
+                width: 120px;
+                padding-bottom: 9px;
+                padding-left: 10px;
+            }
+        }
+    }
+    &__halfWidthInput {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 20px;
+        position: relative;
+        @include responsive(767px)
+        {
+            width: 100%;
+        }
+        &:nth-child(odd) {
+            padding-right: 20px;
+            @include responsive(767px)
+            {
+                padding-right: 0;
+            }
+        }
+        .inputFieldLabel {
+            color: #2f3034;
+            font-family: 'Lato';
+            font-size: 15px;
+            font-weight: 400;
+        }
+        .inputField {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #e5e5e5;
+            background-color: #fff;
+            padding: 16px 30px 15px;
+            color: #2f3034;
+            font-family: 'Lato';
+            font-size: 15px;
+            font-style: italic;
+            margin-top: 19px;
+            @include responsive(767px)
+            {
+                height: 30px;
+                padding: 5px 10px 5px;
+                font-size: 14px;
+                margin-top: 10px;
+            }
+            &::placeholder {
+                color: #e5e5e5;
+            }
+        }
+        .inputFieldErrorMessage {
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            color: #dd0033;
+            font-family: 'Lato';
+            font-size: 12px;
+            display: none;
+            &.active {
+                display: block;
+            }
+            @include responsive(767px)
+            {
+                bottom: 15px;
+            }
+        }
+    }
+    &__fullWidthInput {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 20px;
+        position: relative;
+        .inputFieldLabel {
+            color: #2f3034;
+            font-family: 'Lato';
+            font-size: 15px;
+            font-weight: 400;
+        }
+        .textareaField {
+            width: 100%;
+            border: 1px solid #e5e5e5;
+            background-color: #fff;
+            padding: 16px 30px 15px;
+            color: #2f3034;
+            font-family: 'Lato';
+            font-size: 15px;
+            font-style: italic;
+            margin-top: 19px;
+            height: 120px;
+            resize: none;
+            @include responsive(767px)
+            {
+                padding: 5px 10px 10px;
+                font-size: 14px;
+                margin-top: 10px;
+                height: 100px;
+            }
+            &::placeholder {
+                color: #e5e5e5;
+            }
+        }
+        .inputFieldErrorMessage {
+            position: absolute;
+            bottom: 8px;
+            left: 0;
+            color: #dd0033;
+            font-family: 'Lato';
+            font-size: 12px;
+            display: none;
+            &.active {
+                display: block;
+            }
+            @include responsive(767px)
+            {
+                bottom: 15px;
+            }
+        }
+    }
+    &__submitBlock {
+        width: 100%;
+        padding-top: 10px;
+        .submitBtn {
+            width: 300px;
+            height: 51px;
+            background-color: #fff700;
+            color: #2f3034;
+            font-family: 'Lato';
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            @include responsive(767px)
+            {
+                width: 100%;
+                height: 40px;
+            }
+            &:hover {
+                background-color: #2f3034;
+                color: #fff700;
+            }
+        }
+    }
+}
+
+.yellowCircle {
+    width: 30px;
+    height: 30px;
+    background-color: #fff700;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    @include responsive(1440px)
+    {
+        width: 20px;
+        height: 20px;
+    }
+    &--innerCircle {
+        border: 1px solid #2f3034;
+        border-radius: 50%;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+    }
+}
+.flagCircle {
+//    width: 30px;
+//    height: 30px;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    @include responsive(1440px)
+    {
+        width: 20px;
+        height: 20px;
+    }
+    &--img {
+        width: 100%;
+        height: 100%;
+    }
+}
+.grayCircle {
+    width: 30px;
+    height: 30px;
+    background-color: #2f3034;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    @include responsive(1440px)
+    {
+        width: 20px;
+        height: 20px;
+    }
+}
+.notActive {
+    fill: #E5E5E5!important;
+}
+
+.pointer--circle::before {
+     animation: sk-bounce 3.0s infinite ease-in-out -0.5s;
+}
+.pointer--circle::after {
+     animation: sk-bounce2 3.0s infinite ease-in-out;
+}
+.pointer.active .pointer--circle::before {
+     animation: sk-spinner 1.5s infinite linear -0.5s;
+}
+.pointer.active .pointer--circle::after {
+     animation: sk-spinner2 1.5s infinite linear -0.5s;
+}
+@keyframes sk-bounce {
+    0%, 100% {
+        transform: scale(0.0);
+    }
+    50% {
+        transform: scale(1.3);
+    }
+}
+@keyframes sk-bounce2 {
+    0%, 100% {
+        transform: scale(0.0);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+}
+@keyframes sk-spinner {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(270deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes sk-spinner2 {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(90deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    75% {
+        transform: rotate(270deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
